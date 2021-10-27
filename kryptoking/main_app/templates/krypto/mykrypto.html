@@ -1,5 +1,17 @@
 {% extends 'base.html' %} {% block content %}
 
-<h1>Page to list all krypto the user created</h1>
+<h1>Index page for each crypto the user creates.</h1>
 
-{% endblock %}
+{% for el in krypto %}
+
+<a href="{% url 'detail' el.id %}">
+  <div class="card">
+    <div class="card-content">
+      <span class="card-title">{{ el.name }}</span></a>
+      <p>Price: {{ el.price }}</p>
+      <p>information: {{ el.information }}</p>
+      <p>Symbol: {{ el.information }}</p>
+    </div>
+  </div>
+
+{% endfor %} {% endblock %}
