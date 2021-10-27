@@ -8,6 +8,7 @@ class Krypto(models.Model):
     price = models.IntegerField()
     information = models.CharField(max_length=250)
     symbol = models.CharField(max_length=50)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
