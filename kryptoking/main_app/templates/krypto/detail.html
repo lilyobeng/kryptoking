@@ -11,7 +11,7 @@
         <p>Symbol: {{ krypto.information }}</p>
       </div>
       <div class="card-action"></div>
-      <a class="btn amber darken-2" h ref="{% url 'krypto_update' krypto.id %}"
+      <a class="btn amber darken-2" href="{% url 'krypto_update' krypto.id %}"
         >Edit</a
       >
       <a class="btn amber darken-2" href="{% url 'krypto_delete' krypto.id %}"
