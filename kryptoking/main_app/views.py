@@ -62,6 +62,17 @@ def signup(request):
 
 #Get the price of crypto:
 
-BeautifulSoup
+url = 'https://www.google.com/search?q=bitcoin+price'
 
-# HEllow 
+
+# Make a request to the website:
+
+HTML = requests.get(url)
+
+#Parse the HTML
+
+soup = BeautifulSoup(HTML.text, 'html.parser')
+
+#print soup to find where the text is that contains the price of the cryptocurrency
+
+print(soup.prettify())
