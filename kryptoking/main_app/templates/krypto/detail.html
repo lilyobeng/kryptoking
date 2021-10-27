@@ -1,0 +1,19 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>Fake krypto detail view</h1>
+<div class="row">
+  <div class="col s6">
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">{{ krypto.name }}</span>
+        <p>Price: {{ krypto.price }}</p>
+        <p>information: {{ krypto.information }}</p>
+        <p>Symbol: {{ krypto.information }}</p>
+      </div>
+      <div class="card-action"></div>
+      <a href="{% url 'krypto_update' krypto.id %}">Edit</a>
+      <a href="{% url 'krypto_delete' krypto.id %}">Delete</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

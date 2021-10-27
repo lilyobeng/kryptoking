@@ -16,7 +16,13 @@ class KryptoCreate(CreateView):
       form.instance.user = self.request.user
       return super().form_valid(form)
 
+class KryptoUpdate(UpdateView):
+  model = Krypto
+  fields = ['name', 'price', 'information', 'symbol']
 
+class KryptoDelete(DeleteView):
+  model = Krypto
+  success_url = '/krypto/mykrypto/'
 
 def home(request):
     return render(request, 'home.html')
@@ -25,8 +31,12 @@ def krypto_index(request):
     return render(request, 'krypto/index.html')
 
 def my_krypto_index(request):
-    kryptos = Krypto.objects.all()
-    return render(request, 'krypto/mykrypto.html', {'kryptos': kryptos})
+    krypto = Krypto.objects.all()
+    return render(request, 'krypto/mykrypto.html', {'krypto': krypto})
+
+def krypto_detail(request,krypto_id):
+    krypto = Krypto.objects.get(id=krypto_id)
+    return render(request, 'krypto/detail.html', {'krypto': krypto})
 
 
 
