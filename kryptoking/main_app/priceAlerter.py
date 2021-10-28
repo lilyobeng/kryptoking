@@ -75,7 +75,7 @@ def main():
 
                 last_price = price
                     
-            time.sleep(3)
+            time.sleep(300)
 
 
 # main()

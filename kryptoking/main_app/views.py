@@ -36,7 +36,7 @@ def home(request):
 
 def get_crypto_price(coin):
     #Get the price of crypto:
-    url = 'https://www.google.com/search?q='+coin+'+price'
+    url = f'https://www.google.com/search?q={coin}price'
     # Make a request to the website:
     HTML = requests.get(url)
     #Parse the HTML
@@ -47,10 +47,12 @@ def get_crypto_price(coin):
 
 def krypto_index(request):
     query = request.GET.get('q')
-    print(query)
-    current_price = get_crypto_price(query)
-    print(current_price,"this is the price")
-    return render(request, 'krypto/index.html', {'current_price': current_price})
+    if query:
+      current_price = get_crypto_price(query)
+      print(current_price,"this is the price")
+      return render(request, 'krypto/index.html', {'current_price': current_price, 'query': query})
+    else:
+      return render(request, 'krypto/index.html')
 
 
   
