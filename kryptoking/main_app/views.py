@@ -33,8 +33,27 @@ class KryptoDelete(DeleteView):
 def home(request):
     return render(request, 'home.html')
 
+
+def get_crypto_price(coin):
+    #Get the price of crypto:
+    url = 'https://www.google.com/search?q='+coin+'+price'
+    # Make a request to the website:
+    HTML = requests.get(url)
+    #Parse the HTML
+    soup = BeautifulSoup(HTML.text, 'html.parser')
+    #Find the current price 
+    text = soup.find('div', attrs={'class': 'BNeawe iBp4i AP7Wnd'}).find('div', attrs={'class': 'BNeawe iBp4i AP7Wnd'}).text
+    return text
+
 def krypto_index(request):
-    return render(request, 'krypto/index.html')
+    query = request.GET.get('q')
+    print(query)
+    current_price = get_crypto_price(query)
+    print(current_price,"this is the price")
+    return render(request, 'krypto/index.html', {'current_price': current_price})
+
+
+  
 
 def my_krypto_index(request):
     krypto = Krypto.objects.all()
