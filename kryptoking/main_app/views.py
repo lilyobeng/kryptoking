@@ -6,7 +6,7 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Krypto
+from .models import Comment
 
 
 from bs4 import BeautifulSoup
@@ -16,21 +16,21 @@ import time
 
 # Create your views here.
 
-class KryptoCreate(LoginRequiredMixin,CreateView):
-   model = Krypto
-   fields = ['name', 'price', 'information', 'symbol']
+class CommentCreate(LoginRequiredMixin,CreateView):
+   model = Comment
+   fields = ['description', 'date']
 
    def form_valid(self, form):
       form.instance.user = self.request.user
       return super().form_valid(form)
 
-class KryptoUpdate(LoginRequiredMixin, UpdateView):
-  model = Krypto
-  fields = ['name', 'price', 'information', 'symbol']
+class CommentUpdate(LoginRequiredMixin, UpdateView):
+  model = Comment
+  fields = ['description']
 
-class KryptoDelete(LoginRequiredMixin, DeleteView):
-  model = Krypto
-  success_url = '/krypto/mykrypto/'
+class CommentDelete(LoginRequiredMixin, DeleteView):
+  model = Comment
+  success_url = '/comment/'
 
 def home(request):
     return render(request, 'home.html')
@@ -53,22 +53,19 @@ def krypto_index(request):
     if query:
       current_price = get_crypto_price(query)
       print(current_price,"this is the price")
-      return render(request, 'krypto/index.html', {'current_price': current_price, 'query': query})
+      return render(request, 'comment/index.html', {'current_price': current_price, 'query': query})
     else:
-      return render(request, 'krypto/index.html')
+      return render(request, 'comment/index.html')
 
 
   
 @login_required
-def my_krypto_index(request):
-    krypto = Krypto.objects.all()
-    return render(request, 'krypto/mykrypto.html', {'krypto': krypto})
+def comment_index(request):
+    comment = Comment.objects.all()
+    return render(request, 'comment/comment_index.html', {'comment': comment})
 
 
-@login_required
-def krypto_detail(request,krypto_id):
-    krypto = Krypto.objects.get(id=krypto_id)
-    return render(request, 'krypto/detail.html', {'krypto': krypto})
+
 
 
 
