@@ -4,6 +4,8 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Krypto
 
 
@@ -14,7 +16,7 @@ import time
 
 # Create your views here.
 
-class KryptoCreate(CreateView):
+class KryptoCreate(LoginRequiredMixin,CreateView):
    model = Krypto
    fields = ['name', 'price', 'information', 'symbol']
 
@@ -22,24 +24,48 @@ class KryptoCreate(CreateView):
       form.instance.user = self.request.user
       return super().form_valid(form)
 
-class KryptoUpdate(UpdateView):
+class KryptoUpdate(LoginRequiredMixin, UpdateView):
   model = Krypto
   fields = ['name', 'price', 'information', 'symbol']
 
-class KryptoDelete(DeleteView):
+class KryptoDelete(LoginRequiredMixin, DeleteView):
   model = Krypto
   success_url = '/krypto/mykrypto/'
 
 def home(request):
     return render(request, 'home.html')
 
-def krypto_index(request):
-    return render(request, 'krypto/index.html')
 
+def get_crypto_price(coin):
+    #Get the price of crypto:
+    url = f'https://www.google.com/search?q={coin}price'
+    # Make a request to the website:
+    HTML = requests.get(url)
+    #Parse the HTML
+    soup = BeautifulSoup(HTML.text, 'html.parser')
+    #Find the current price 
+    text = soup.find('div', attrs={'class': 'BNeawe iBp4i AP7Wnd'}).find('div', attrs={'class': 'BNeawe iBp4i AP7Wnd'}).text
+    return text
+
+@login_required
+def krypto_index(request):
+    query = request.GET.get('q')
+    if query:
+      current_price = get_crypto_price(query)
+      print(current_price,"this is the price")
+      return render(request, 'krypto/index.html', {'current_price': current_price, 'query': query})
+    else:
+      return render(request, 'krypto/index.html')
+
+
+  
+@login_required
 def my_krypto_index(request):
     krypto = Krypto.objects.all()
     return render(request, 'krypto/mykrypto.html', {'krypto': krypto})
 
+
+@login_required
 def krypto_detail(request,krypto_id):
     krypto = Krypto.objects.get(id=krypto_id)
     return render(request, 'krypto/detail.html', {'krypto': krypto})

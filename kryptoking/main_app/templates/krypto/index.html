@@ -2,4 +2,19 @@
 
 <h1>Index page to list real crypto.</h1>
 
+<form method="GET" action="" id="searchform">
+  <input
+    class="searchfield"
+    id="searchbox"
+    name="q"
+    type="text"
+    value="{{ request.GET.q }}"
+    placeholder="Search..."
+  />
+</form>
+
+<div>
+  <h4>Current {{query}} Price: {{current_price}}</h4>
+</div>
+
 {% endblock %}
