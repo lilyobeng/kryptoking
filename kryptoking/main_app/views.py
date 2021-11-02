@@ -1,12 +1,12 @@
 
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Comment
+from .models import Post, Comment
+from .forms import CommentForm
 
 
 from bs4 import BeautifulSoup
@@ -16,24 +16,41 @@ import time
 
 # Create your views here.
 
-class CommentCreate(LoginRequiredMixin,CreateView):
-   model = Comment
-   fields = ['description', 'date']
+class PostCreate(LoginRequiredMixin,CreateView):
+   model = Post
+   fields = ['body']
 
    def form_valid(self, form):
       form.instance.user = self.request.user
       return super().form_valid(form)
 
-class CommentUpdate(LoginRequiredMixin, UpdateView):
-  model = Comment
-  fields = ['description']
+class PostUpdate(LoginRequiredMixin, UpdateView):
+  model = Post
+  fields = ['body']
 
-class CommentDelete(LoginRequiredMixin, DeleteView):
-  model = Comment
-  success_url = '/comment/'
+class PostDelete(LoginRequiredMixin, DeleteView):
+  model = Post
+  success_url = '/post/'
 
+
+   
 def home(request):
     return render(request, 'home.html')
+
+
+
+def post_detail(request, post_id):
+  post = Post.objects.get(id=post_id)
+  comment_form = CommentForm()
+  return render(request, 'post/detail.html', {'post': post, 'comment_form': comment_form})
+
+def add_comment(request, post_id):
+  form = CommentForm(request.POST)
+  if form.is_valid():
+    new_comment = form.save(commit=False)
+    new_comment.post_id = post_id
+    new_comment.save()
+  return redirect('detail', post_id=post_id)
 
 
 def get_crypto_price(coin):
@@ -53,16 +70,17 @@ def krypto_index(request):
     if query:
       current_price = get_crypto_price(query)
       print(current_price,"this is the price")
-      return render(request, 'comment/index.html', {'current_price': current_price, 'query': query})
+      return render(request, 'post/index.html', {'current_price': current_price, 'query': query})
     else:
-      return render(request, 'comment/index.html')
+      return render(request, 'post/index.html')
 
 
   
 @login_required
-def comment_index(request):
+def post_index(request):
+    post = Post.objects.all()
     comment = Comment.objects.all()
-    return render(request, 'comment/comment_index.html', {'comment': comment})
+    return render(request, 'post/post_index.html', {'post': post, 'comment': comment})
 
 
 
