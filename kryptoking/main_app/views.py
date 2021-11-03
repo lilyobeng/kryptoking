@@ -5,8 +5,17 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+
 from .models import Post, Comment
 from .forms import CommentForm
+
+
+from datetime import datetime, timedelta
+
+import plotly.graph_objects as go
+import pandas as pd
+
+ 
 
 
 from bs4 import BeautifulSoup
@@ -114,6 +123,17 @@ def signup(request):
 #Get the price of crypto:
 
 url = 'https://www.google.com/search?q=bitcoin+price'
+  
+df = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/finance-charts-apple.csv')
+
+fig = go.Figure(data=[go.Candlestick(x=df['Date'],
+       open=df['AAPL.Open'], high=df['AAPL.High'],
+       low=df['AAPL.Low'], close=df['AAPL.Close'])
+                     ])
+
+fig.update_layout(xaxis_rangeslider_visible=False)
+fig.show()
+
 
 
 # Make a request to the website:
