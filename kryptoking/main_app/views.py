@@ -1,5 +1,5 @@
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
@@ -12,21 +12,21 @@ from .forms import CommentForm
 from bs4 import BeautifulSoup
 
 import requests
-import time
+
 
 # Create your views here.
 
 class PostCreate(LoginRequiredMixin,CreateView):
-   model = Post
-   fields = ['body']
+  model = Post
+  fields = ['topic','body']
 
-   def form_valid(self, form):
-      form.instance.user = self.request.user
-      return super().form_valid(form)
+  def form_valid(self, form):
+    form.instance.user = self.request.user
+    return super().form_valid(form)
 
 class PostUpdate(LoginRequiredMixin, UpdateView):
   model = Post
-  fields = ['body']
+  fields = ['topic', 'body']
 
 class PostDelete(LoginRequiredMixin, DeleteView):
   model = Post
@@ -35,7 +35,7 @@ class PostDelete(LoginRequiredMixin, DeleteView):
 
    
 def home(request):
-    return render(request, 'home.html')
+  return render(request, 'home.html')
 
 
 
@@ -43,6 +43,7 @@ def post_detail(request, post_id):
   post = Post.objects.get(id=post_id)
   comment_form = CommentForm()
   return render(request, 'post/detail.html', {'post': post, 'comment_form': comment_form})
+
 
 def add_comment(request, post_id):
   form = CommentForm(request.POST)
@@ -53,16 +54,29 @@ def add_comment(request, post_id):
   return redirect('detail', post_id=post_id)
 
 
+def delete_comment(request, id):
+
+  context = {}
+  obj = get_object_or_404(Comment, id = id)
+  if request.method == 'POST':
+    obj.delete()
+    return redirect('/')
+  return render(request, 'post/delete_comment.html', context)
+
+
+
 def get_crypto_price(coin):
     #Get the price of crypto:
-    url = f'https://www.google.com/search?q={coin}price'
+  url = 'https://www.google.com/search?q='+coin+'price'
     # Make a request to the website:
-    HTML = requests.get(url)
+  HTML = requests.get(url)
     #Parse the HTML
-    soup = BeautifulSoup(HTML.text, 'html.parser')
+  soup = BeautifulSoup(HTML.text, 'html.parser')
+  print(soup)
     #Find the current price 
-    text = soup.find('div', attrs={'class': 'BNeawe iBp4i AP7Wnd'}).find('div', attrs={'class': 'BNeawe iBp4i AP7Wnd'}).text
-    return text
+  text = soup.find('div', attrs={'class': 'BNeawe iBp4i AP7Wnd'}).find('div', attrs={'class': 'BNeawe iBp4i AP7Wnd'}).text
+  return text
+
 
 @login_required
 def krypto_index(request):
@@ -71,6 +85,7 @@ def krypto_index(request):
       current_price = get_crypto_price(query)
       print(current_price,"this is the price")
       return render(request, 'post/index.html', {'current_price': current_price, 'query': query})
+    
     else:
       return render(request, 'post/index.html')
 
@@ -78,12 +93,9 @@ def krypto_index(request):
   
 @login_required
 def post_index(request):
-    post = Post.objects.all()
-    comment = Comment.objects.all()
-    return render(request, 'post/post_index.html', {'post': post, 'comment': comment})
-
-
-
+  post = Post.objects.all()
+  comment = Comment.objects.all()
+  return render(request, 'post/post_index.html', {'post': post, 'comment': comment})
 
 
 
@@ -113,17 +125,17 @@ def signup(request):
 
 #Get the price of crypto:
 
-url = 'https://www.google.com/search?q=bitcoin+price'
+# url = 'https://www.google.com/search?q='+coin+'+price'
 
 
-# Make a request to the website:
+# # Make a request to the website:
 
-HTML = requests.get(url)
+# HTML = requests.get(url)
 
-#Parse the HTML
+# #Parse the HTML
 
-soup = BeautifulSoup(HTML.text, 'html.parser')
+# soup = BeautifulSoup(HTML.text, 'html.parser')
 
-#print soup to find where the text is that contains the price of the cryptocurrency
+# #print soup to find where the text is that contains the price of the cryptocurrency
 
-print(soup.prettify())
+# print(soup.prettify())

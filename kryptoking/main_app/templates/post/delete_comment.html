@@ -1,0 +1,12 @@
+{% extends 'base.html' %} {% block content %}
+<h1>Delete Comment</h1>
+
+<h4>Are you sure you want to delete your comment?</h4>
+<p>{{context.name}}</p>
+
+<form method="POST">
+  {% csrf_token %}
+  <input type="submit" value="Yes" class="btn amber darken-2" />
+  <a class="btn amber darken-2" href="{% url 'post_index'%}">Cancel</a>
+</form>
+{% endblock %}
