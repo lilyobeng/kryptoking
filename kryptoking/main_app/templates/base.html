@@ -28,10 +28,10 @@
           {% if user.is_authenticated %}
           <li class="tab"><a href="{% url 'index' %}">Crypto Prices</a></li>
           <li class="tab">
-            <a href="{% url 'comment_index' %}">View comments</a>
+            <a href="{% url 'post_index' %}">View Posts</a>
           </li>
           <li class="tab">
-            <a href="{% url 'comment_create' %}">Add a comment</a>
+            <a href="{% url 'post_create' %}">Add a Post</a>
           </li>
           <li class="tab"><a href="{% url 'logout' %}">Logout</a></li>
           {% else %}
