@@ -9,8 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Comment
 from datetime import datetime, timedelta
 
-import plotly.graph_objects as go
-import pandas as pd
+
 
 
 
@@ -52,6 +51,7 @@ def get_crypto_price(coin):
     text = soup.find('div', attrs={'class': 'BNeawe iBp4i AP7Wnd'}).find('div', attrs={'class': 'BNeawe iBp4i AP7Wnd'}).text
     return text
 
+
 @login_required
 def krypto_index(request):
     query = request.GET.get('q')
@@ -59,8 +59,10 @@ def krypto_index(request):
       current_price = get_crypto_price(query)
       print(current_price,"this is the price")
       return render(request, 'comment/index.html', {'current_price': current_price, 'query': query})
+    
     else:
       return render(request, 'comment/index.html')
+
 
 
   
@@ -102,15 +104,7 @@ def signup(request):
 
 url = 'https://www.google.com/search?q=bitcoin+price'
   
-df = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/finance-charts-apple.csv')
 
-fig = go.Figure(data=[go.Candlestick(x=df['Date'],
-       open=df['AAPL.Open'], high=df['AAPL.High'],
-       low=df['AAPL.Low'], close=df['AAPL.Close'])
-                     ])
-
-fig.update_layout(xaxis_rangeslider_visible=False)
-fig.show()
 
 
 

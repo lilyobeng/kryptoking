@@ -12,3 +12,12 @@ footer.page-footer {
   padding-top: 0;
   text-align: right;
 }
+
+.page-headings {
+  font-family: 'Zen Antique', serif;
+
+}
+
+p {
+  font-family: 'Mali', cursive;
+}
