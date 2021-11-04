@@ -10,7 +10,13 @@ from .models import Post, Comment
 from .forms import CommentForm
 
 
+<<<<<<< HEAD
 import pandas as pd
+=======
+from datetime import datetime, timedelta
+
+
+>>>>>>> 5aab093dc7ccbf45fa5716fb56035eb586e7e86b
 
 
 
@@ -144,16 +150,21 @@ def get_crypto_price(coin):
   return text
 
 
+
 @login_required
 def krypto_index(request):
     query = request.GET.get('q')
     if query:
       current_price = get_crypto_price(query)
       print(current_price,"this is the price")
+
       return render(request, 'post/index.html', {'current_price': current_price, 'query': query})
     
     else:
       return render(request, 'post/index.html')
+
+
+
 
 
   
@@ -191,8 +202,19 @@ def signup(request):
 
 #Get the price of crypto:
 
+<<<<<<< HEAD
 
 # url = 'https://www.google.com/search?q='+coin+'+price'
+=======
+
+
+
+url = 'https://www.google.com/search?q=bitcoin+price'
+  
+
+
+
+>>>>>>> 5aab093dc7ccbf45fa5716fb56035eb586e7e86b
 
 
 # # Make a request to the website:
