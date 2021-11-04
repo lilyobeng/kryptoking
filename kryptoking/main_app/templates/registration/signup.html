@@ -6,7 +6,11 @@
 <p class="red-text">{{ error_message }}</p>
 {% endif %}
 
-<form method="post" action="{% url 'signup' %}" class="form-bg blue lighten-5">
+<form
+  method="post"
+  action="{% url 'signup' %}"
+  class="form-bg blue-grey lighten-4"
+>
   {% csrf_token %} {{ form.as_p }}
   <input type="submit" class="btn amber darken-2" value="signup" />
 </form>

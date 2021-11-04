@@ -2,7 +2,7 @@
 
 <h4 class="white-heading comment-page-heading">Topic: {{post.topic}}</h4>
 
-<div class="form-bg blue lighten-5">
+<div class="form-bg blue-grey lighten-4">
   <form action="{% url 'add_comment' post.id %}" method="post">
     {% csrf_token %} {{ comment_form.as_p }}
     <input
@@ -14,7 +14,7 @@
 </div>
 
 {% for el in post.comment_set.all %}
-<div class="comment-display card blue lighten-5">
+<div class="comment-display card blue-grey lighten-4">
   <p>{{el.name}}</p>
   <p class="comment-body-text"><strong>{{el.body}}</strong></p>
   <p>{{el.date}}</p>

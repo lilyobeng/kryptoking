@@ -2,7 +2,7 @@ body {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
-  background-image: url("https://i.imgur.com/jvDfacH.jpgg");
+  background-image: url("https://i.imgur.com/vZKNw1t.jpg");
 }
 
 main {
@@ -72,4 +72,14 @@ p {
 
 .white-heading {
   color: white;
+  text-shadow: #000 0px 0px 1px, #000 0px 0px 1px, #000 0px 0px 1px;
+}
+
+.logo {
+  width: 300px;
+  margin-left: 15px;
+}
+
+.date-index {
+  margin-bottom: 5px;
 }
