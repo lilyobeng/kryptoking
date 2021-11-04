@@ -9,16 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Post, Comment
 from .forms import CommentForm
 
-
-<<<<<<< HEAD
 import pandas as pd
-=======
-from datetime import datetime, timedelta
-
-
->>>>>>> 5aab093dc7ccbf45fa5716fb56035eb586e7e86b
-
-
 
 from bs4 import BeautifulSoup
 
@@ -197,24 +188,10 @@ def signup(request):
   return render(request, 'registration/signup.html', context)
 
 
-
-  #program to get the current price of crypto
+#program to get the current price of crypto
 
 #Get the price of crypto:
 
-<<<<<<< HEAD
-
-# url = 'https://www.google.com/search?q='+coin+'+price'
-=======
-
-
-
-url = 'https://www.google.com/search?q=bitcoin+price'
-  
-
-
-
->>>>>>> 5aab093dc7ccbf45fa5716fb56035eb586e7e86b
 
 
 # # Make a request to the website:

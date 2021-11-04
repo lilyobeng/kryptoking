@@ -13,16 +13,22 @@
 <div>
   <form action="{% url 'add_comment' post.id %}" method="post">
     {% csrf_token %} {{ comment_form.as_p }}
-    <input type="submit" class="btn amber darken-2" value="Add Comment" />
+    <input
+      type="submit"
+      class="btn amber darken-2 add-comment-btn"
+      value="Add Comment"
+    />
   </form>
 </div>
 
 {% for el in post.comment_set.all %}
-<div class="comment-display">
+<div class="comment-display card blue-grey lighten-4">
   <p>{{el.name}}</p>
-  <p><strong>{{el.body}}</strong></p>
+  <p class="comment-body-text"><strong>{{el.body}}</strong></p>
   <p>{{el.date}}</p>
-  <a class="btn amber darken-2" href="{% url 'delete_comment' el.id %}"
+  <a
+    class="btn amber darken-2 delete-comment-btn"
+    href="{% url 'delete_comment' el.id %}"
     ><i class="material-icons">delete</i></a
   >
 </div>
