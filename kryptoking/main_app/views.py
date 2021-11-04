@@ -12,8 +12,7 @@ from .forms import CommentForm
 
 from datetime import datetime, timedelta
 
-import plotly.graph_objects as go
-import pandas as pd
+
 
  
 
@@ -87,16 +86,21 @@ def get_crypto_price(coin):
   return text
 
 
+
 @login_required
 def krypto_index(request):
     query = request.GET.get('q')
     if query:
       current_price = get_crypto_price(query)
       print(current_price,"this is the price")
+
       return render(request, 'post/index.html', {'current_price': current_price, 'query': query})
     
     else:
       return render(request, 'post/index.html')
+
+
+
 
 
   
@@ -134,22 +138,14 @@ def signup(request):
 
 #Get the price of crypto:
 
-<<<<<<< HEAD
-# url = 'https://www.google.com/search?q='+coin+'+price'
-=======
+
+
+
 url = 'https://www.google.com/search?q=bitcoin+price'
   
-df = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/finance-charts-apple.csv')
 
-fig = go.Figure(data=[go.Candlestick(x=df['Date'],
-       open=df['AAPL.Open'], high=df['AAPL.High'],
-       low=df['AAPL.Low'], close=df['AAPL.Close'])
-                     ])
 
-fig.update_layout(xaxis_rangeslider_visible=False)
-fig.show()
 
->>>>>>> 7b45144f8c27f51902d81f766dd12165a447038f
 
 
 # # Make a request to the website:
