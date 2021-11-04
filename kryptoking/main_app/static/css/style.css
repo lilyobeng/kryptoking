@@ -24,8 +24,15 @@ footer.page-footer {
   margin-bottom: 20px;
   color: black;
   text-decoration: none;
+  font-weight: bold;
 }
 
 .page-headings-post-index:hover {
   color: #0d47a1;
+}
+
+.comment-display {
+  display: flex;
+  width: 50%;
+  justify-content: center;
 }

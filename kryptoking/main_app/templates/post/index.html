@@ -17,4 +17,18 @@
   <h4>Current {{query}} Price: {{current_price}}</h4>
 </div>
 
+<div>
+  <input type="text" placeholder="Enter email" id="email" value="" />
+
+  <input id="submit" type="submit" value="Send-Email" class="btn" />
+</div>
+
+<script>
+  document.getElementById("submit").addEventListener("click", sendEmail);
+  let email = document.getElementById("email");
+  function sendEmail() {
+    console.log(email.value);
+  }
+</script>
+
 {% endblock %}
