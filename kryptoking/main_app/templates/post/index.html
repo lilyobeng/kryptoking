@@ -1,8 +1,8 @@
 {% extends 'base.html' %} {% block content %}
 
-<h1>Index page to list real crypto.</h1>
+<h1 class="white-heading">Search for current crypto prices.</h1>
 
-<form method="GET" action="" id="searchform">
+<form method="GET" action="" id="searchform" class="form-bg blue lighten-5">
   <input
     class="searchfield"
     id="searchbox"
@@ -14,7 +14,7 @@
 </form>
 
 <div>
-  <h4>Current {{query}} Price: {{current_price}}</h4>
+  <h4 class="white-heading">Current {{query}} Price: {{current_price}}</h4>
 </div>
 
 <div>
