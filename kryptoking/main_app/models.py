@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 
 
 class Post(models.Model):
+    topic = models.CharField(max_length=250)
     body = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -16,7 +17,7 @@ class Post(models.Model):
         return self.body
     
     def get_absolute_url(self):
-        return reverse('post_index', kwargs={'post_id': self.id})
+        return reverse('post_index')
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)

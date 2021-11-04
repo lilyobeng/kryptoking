@@ -1,7 +1,9 @@
 {% extends 'base.html' %} {% block content %} {% if object %}
-<h1>Edit <span class="teal-text">{{object.name}}</span></h1>
+<h1 class="page-headings">
+  Edit <span class="teal-text">{{object.name}}</span>
+</h1>
 {% else %}
-<h1>Create your own Posts about real crypto</h1>
+<h1 class="page-headings">Create a post</h1>
 {% endif %}
 <!-- Leaving the action empty makes the form post to the same url used to display it -->
 <form action="" method="post">
@@ -11,6 +13,6 @@
     <!-- Render the inputs inside of <tr>s & <td>s -->
     {{ form.as_table }}
   </table>
-  <input type="submit" value="Submit!" class="btn" />
+  <input type="submit" value="Submit!" class="btn amber darken-2" />
 </form>
 {% endblock %}
