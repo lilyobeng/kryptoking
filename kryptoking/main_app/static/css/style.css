@@ -2,6 +2,7 @@ body {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+  background-image: url("https://i.imgur.com/vZKNw1t.jpg");
 }
 
 main {
@@ -14,27 +15,71 @@ footer.page-footer {
 }
 
 .page-headings {
-
   text-align: center;
-  font-family: "Noto Serif Display", serif;
+  font-family: "Ubuntu", sans-serif;
 }
 
 .page-headings-post-index {
   text-align: center;
-  font-family: "Noto Serif Display", serif;
+  font-family: "Ubuntu", sans-serif;
   margin-bottom: 20px;
-  color: black;
+  color: white;
   text-decoration: none;
+  font-weight: bold;
 }
 
 .page-headings-post-index:hover {
-  color: #0d47a1;
-
-  font-family: 'Zen Antique', serif;
-
+  color: #ffa000;
+  font-family: "Ubuntu", sans-serif;
 }
 
 p {
-  font-family: 'Mali', cursive;
+  font-size: 18px;
+}
 
+.comment-display {
+  display: flex;
+  /* width: 50%; */
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 0 10px 0;
+  margin-top: 20px;
+  line-height: 0;
+  flex-wrap: wrap;
+}
+
+.comment-body-text {
+  display: flex;
+  line-height: 1.5;
+  text-align: center;
+  padding: 0 10px 0 10px;
+  margin: 2px 0 5px 0;
+}
+
+.delete-comment-btn {
+  margin-top: 5px;
+}
+
+.comment-page-heading {
+  font-family: Noto Serif Display, serif;
+  text-align: center;
+  font-weight: bold;
+}
+
+.form-bg {
+  padding: 10px;
+}
+
+.white-heading {
+  color: white;
+  text-shadow: #000 0px 0px 1px, #000 0px 0px 1px, #000 0px 0px 1px;
+}
+
+.logo {
+  width: 300px;
+  margin-left: 15px;
+}
+
+.date-index {
+  margin-bottom: 5px;
 }

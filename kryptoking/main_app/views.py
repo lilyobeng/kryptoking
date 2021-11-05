@@ -9,13 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Post, Comment
 from .forms import CommentForm
 
-
-from datetime import datetime, timedelta
-
-
-
- 
-
+import pandas as pd
 
 from bs4 import BeautifulSoup
 
@@ -71,7 +65,68 @@ def delete_comment(request, id):
     return redirect('/')
   return render(request, 'post/delete_comment.html', context)
 
+receiver = 'variablefromform'
+sender = 'pythonsendalert@gmail.com'
 
+sender_password = 'hello!random!user*'
+
+
+
+
+def send_email(sender, receiver, sender_password, text_price):
+    # Create a MIMIMultipart object
+
+    msg = MM()
+    msg['Subject'] = "New Crypto Price Alert !"
+    msg ['From'] = sender
+    msg ['To'] = receiver 
+
+    #Create the HTML for the message
+
+    HTML = """
+        <html>
+        <body>
+        <h1> New Crypto Price Alert ! </h1>
+        <h2> """ +text_price+"""
+        </h2>
+        </body>
+        </html>
+        """
+
+        #Create a html MIME text object
+
+    MTObj = MT(HTML, 'html')
+    msg.attach(MTObj)
+
+    SSL_context = ssl.create_default_context()
+    server = smtplib.SMTP_SSL(host='smtp.gmail.com', port=465, context=SSL_context)
+
+    server.login(sender,sender_password)
+
+    #send the email
+    server.sendmail(sender,receiver, msg.as_string())
+
+
+#Create a function to send the alert
+
+def send_alert():
+    last_price = -1
+    #creating an infinate loop to show the price
+    while True:
+        coin = 'bitcoin'
+        #Get the price of cryptocurrency 
+        price = get_crypto_price(coin)
+        #Check if price changed
+        if price != last_price:
+            print(coin.capitalize() + ' price: ', price)
+            price_text = coin.capitalize() + ' is ' +price
+            send_email(sender, receiver, sender_password, price_text)
+            last_price = price #update teh last price
+            time.sleep(300)
+
+
+#sending alert function 
+# send_alert()
 
 def get_crypto_price(coin):
     #Get the price of crypto:
@@ -133,18 +188,9 @@ def signup(request):
   return render(request, 'registration/signup.html', context)
 
 
-
-  #program to get the current price of crypto
+#program to get the current price of crypto
 
 #Get the price of crypto:
-
-
-
-
-url = 'https://www.google.com/search?q=bitcoin+price'
-  
-
-
 
 
 

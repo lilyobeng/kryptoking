@@ -1,14 +1,18 @@
 {% extends 'base.html' %} {% block content %}
-<h1>Delete Post</h1>
+<h1 class="white-heading">Delete Post</h1>
 
-<h4>
-  Are you sure you want to delete
-  <span class="teal-text">{{ object.name }}</span>?
+<h4 class="white-heading">
+  Are you sure you want to delete the post:
+  <span>{{ object.topic }}</span>?
 </h4>
 
 <form action="" method="POST">
   {% csrf_token %}
-  <input type="submit" value="Yes - Delete!" class="btn amber darken-2" />
-  <a href="{% url 'post_index'%}">Cancel</a>
+  <input
+    type="submit"
+    value="Yes - Delete!"
+    class="btn amber darken-2 center-button"
+  />
+  <a class="btn amber darken-2" href="{% url 'post_index'%}">Cancel</a>
 </form>
 {% endblock %}

@@ -1,6 +1,6 @@
 {% extends 'base.html' %} {% block content %}
 
-<h4 class="page-headings-post-index"><a class="page-headings-post-index" href="{% url 'post_create' %}">Share your insights & opinion on the current crypto market.</a></h4>
+<h3 class="page-headings-post-index white-heading"><a class="page-headings-post-index" href="{% url 'post_create' %}">Share your insights & opinion on the current crypto market.</a></h3>
 
 
 {% for el in post %}
@@ -8,8 +8,9 @@
 
   <div class="card blue-grey lighten-4">
     <div class="card-content">
-      <span class="card-title"><strong>{{ el.user }}</strong></span></a>
+      <span class="card-title"><strong>{{ el.topic }}</strong></span></a>
       <p>{{el.body}}</p>
+      <p class="date-index">{{el.date}}</p>
     </div>
     <div class="card-action">
       <a class="btn amber darken-2" href="{% url 'detail' el.id %}"

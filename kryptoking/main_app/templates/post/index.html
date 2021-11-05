@@ -1,10 +1,15 @@
 {% extends 'base.html' %} {% block content %}
 
-<h1>Index page to list real crypto.</h1>
+<h1 class="white-heading">Search for current crypto prices.</h1>
 
-<form method="GET" action="" id="searchform">
+<form
+  method="GET"
+  action=""
+  id="searchform"
+  class="form-bg blue-grey lighten-4"
+>
   <input
-    class="searchfield"
+    class="searchfield white-heading"
     id="searchbox"
     name="q"
     type="text"
@@ -14,7 +19,32 @@
 </form>
 
 <div>
-  <h4>Current {{query}} Price: {{current_price}}</h4>
+  <h4 class="white-heading">Current {{query}} Price: {{current_price}}</h4>
 </div>
+
+<div>
+  <input
+    type="text"
+    placeholder="Enter email"
+    id="email"
+    value=""
+    class="blue-grey lighten-4 white-heading form-bg"
+  />
+
+  <input
+    id="submit"
+    type="submit"
+    value="Send-Email"
+    class="btn amber darken-2"
+  />
+</div>
+
+<script>
+  document.getElementById("submit").addEventListener("click", sendEmail);
+  let email = document.getElementById("email");
+  function sendEmail() {
+    console.log(email.value);
+  }
+</script>
 
 {% endblock %}
