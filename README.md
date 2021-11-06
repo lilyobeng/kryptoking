@@ -15,4 +15,12 @@ Welcome to Krypto King a paltform were you can get the lastest information on yo
 
 **Server:** Django, 
 
+## Getting Started
+
+To deploy this project run:https://kryptoking.herokuapp.com/
+
+Trello Board:https://trello.com/b/OhBvOHHg/krypto-king
+
+
 ## Future Enhancements 
+Create email alerts for users to get latest crypto price updates
